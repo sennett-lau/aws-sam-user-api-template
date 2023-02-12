@@ -54,10 +54,10 @@ HTTP API is used as the API Gateway type as it support both with and without aut
 ![Architecture](./docs/architecture-diagram.png)
 
 ## Requirements
-- [AWS CLI installed](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
-- [SAM CLI installed](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
-- [AWS CLI configured](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
-- [NodeJS installed](https://nodejs.org/en/download/)
+- [AWS CLI installation](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
+- [SAM CLI installation](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
+- [AWS CLI configuration](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
+- [NodeJS installation](https://nodejs.org/en/download/)
 
 ## Implementation
 

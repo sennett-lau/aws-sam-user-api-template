@@ -227,3 +227,11 @@ Outputs:
     Description: API Gateway endpoint URL for Prod stage for get map function
     Value:
       Fn::Sub: https://${UserApi}.execute-api.${AWS::Region}.amazonaws.com/${Env}/
+      
+  JwtAuthenticatorFunctionArn:
+    Description: JWT Authenticator
+    Value: !GetAtt AuthFunction.Arn
+
+  JwtAuthenticatorFunctionInvokeRoleArn:
+    Description: JWT Authenticator Invoke Role
+    Value: !GetAtt AuthFunctionInvokeRole.Arn

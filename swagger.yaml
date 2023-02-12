@@ -1,0 +1,254 @@
+openapi: '3.0.3'
+info:
+  description: This is a schema for user api
+  version: "1.0.0"
+  title: "User API"
+paths:
+  /user/sign-up:
+    post:
+      tags:
+        - Auth
+      summary: User sign up api
+      requestBody:
+        $ref: '#/components/requestBodies/Auth'
+      responses:
+        200:
+          description: successfully sign up
+          $ref: '#/components/responses/Ok'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+  /user/sign-in:
+    post:
+      tags:
+        - Auth
+      summary: User sign in api
+      requestBody:
+        $ref: '#/components/requestBodies/Auth'
+      responses:
+        200:
+          description: successfully logged in
+          $ref: '#/components/responses/Ok'
+          content:
+            application/json:
+              schema:
+                properties:
+                  token:
+                    type: string
+                    required: true
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+  /user:
+    get:
+      tags:
+        - User
+      summary: Get user api
+      parameters:
+        - name: Authorization
+          in: header
+          description: Authorization token
+          schema:
+            type: string
+        - name: username
+          in: query
+          description: username
+          schema:
+            type: string
+        - name: userId
+          in: query
+          description: userId
+          schema:
+            type: string
+      responses:
+        200:
+          description: successfully get user
+          $ref: '#/components/responses/Ok'
+          content:
+            application/json:
+              schema:
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+    put:
+      tags:
+        - User
+      summary: Update user api
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateUser'
+      responses:
+        200:
+          description: successfully updated user
+          $ref: '#/components/responses/Ok'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+    delete:
+      tags:
+        - User
+      summary: Delete user api
+      parameters:
+        - name: Authorization
+          in: header
+          description: Authorization token
+          schema:
+            type: string
+      responses:
+        200:
+          description: successfully deleted user
+          $ref: '#/components/responses/Ok'
+        400:
+          $ref: '#/components/responses/BadRequestError'
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+        404:
+          $ref: '#/components/responses/NotFoundError'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+
+components:
+  responses:
+    Ok:
+      description: ok
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - message
+            properties:
+              message:
+                type: string
+                example: OK
+    BadRequestError:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - message
+            properties:
+              message:
+                type: string
+                example: Bad Request
+    UnauthorizedError:
+      description: unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - message
+            properties:
+              message:
+                type: string
+                example: Unauthorized
+    NotFoundError:
+      description: not found
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - message
+            properties:
+              message:
+                type: string
+                example: Not Found
+    InternalServerError:
+      description: internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - message
+            properties:
+              message:
+                type: string
+                example: Internal Server Error
+    UnexpectedError:
+      description: unexpected error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  requestBodies:
+    Auth:
+      description: Auth object that needs to be added
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Auth'
+    UpdateUser:
+      description: Update user object that needs to be added
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Username'
+  schemas:
+    Auth:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    Username:
+      type: object
+      properties:
+        username:
+          type: string
+    User:
+      type: object
+      properties:
+        userId:
+          type: string
+          format: uuid
+        username:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        message:
+          type: string

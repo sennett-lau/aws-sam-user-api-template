@@ -60,6 +60,8 @@ HTTP API is used as the API Gateway type as it support both with and without aut
 - [NodeJS installed](https://nodejs.org/en/download/)
 
 ## Implementation
+
+### User Api
 1. Clone this repository
 2. Create a Parameter Store entry in AWS for the JWT secret
     - With AWS CLI
@@ -77,6 +79,29 @@ HTTP API is used as the API Gateway type as it support both with and without aut
      `sam deploy --parameter-overrides Project=<your-project-name> Env=<your-env>`
 4. Build the application with `sam build`
 5. Deploy the application with `sam deploy --guided` for the first time and `sam deploy` after that
+
+### Other Apis
+After deploying the user api you can deploy other apis with also implementing the JWT authenticator.
+```yaml
+# only the relevant parts are shown
+# more info can be found in the UserApi template
+SampleApi:
+    Type: AWS::Serverless::HttpApi
+    # or AWS::Serverless::Api 
+    # if a route must or must not include the authorization header
+    # while HttpApi allow a route to have both with and without authorization
+    # more details can be found in the AWS documentation
+    Properties:
+      # the actual authorizer implementation
+      Auth:
+        DefaultAuthorizer: LambdaRequestAuthorizer
+        Authorizers:
+          LambdaRequestAuthorizer:
+            FunctionArn: !ImportValue JwtAuthFunctionArn
+            FunctionInvokeRole: !ImportValue JwtAuthenticatorFunctionInvokeRoleArn
+            AuthorizerPayloadFormatVersion: 2.0
+            EnableSimpleResponses: true
+```
 
 ## Contributing
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.

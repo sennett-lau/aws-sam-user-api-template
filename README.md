@@ -51,6 +51,7 @@ HTTP API is used as the API Gateway type as it support both with and without aut
 ```
 
 ## Architecture
+![Architecture](./docs/architecture-diagram.png)
 
 ## Requirements
 - [AWS CLI installed](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)

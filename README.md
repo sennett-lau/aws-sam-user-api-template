@@ -78,7 +78,8 @@ HTTP API is used as the API Gateway type as it support both with and without aut
      <br>
      `sam deploy --parameter-overrides Project=<your-project-name> Env=<your-env>`
 4. Build the application with `sam build`
-5. Deploy the application with `sam deploy --guided` for the first time and `sam deploy` after that
+5. Remove the `samconfig.toml`from the `.gitignore` file, allowing you to save the deployment configuration
+6. Deploy the application with `sam deploy --guided` for the first time and `sam deploy` after that
 
 ### Other Apis
 After deploying the user api you can deploy other apis with also implementing the JWT authenticator.

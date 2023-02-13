@@ -105,3 +105,6 @@ web_modules/
 
 # Src
 src/node_modules
+
+# SAM Deploy Config
+samconfig.toml

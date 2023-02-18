@@ -116,4 +116,4 @@ Contributions are what make the open source community such an amazing place to l
 5. Open a pull request
 
 ## License
-This library is licensed under the MIT License. See the LICENSE file.
+This library is licensed under the MIT License. See the [LICENSE](LICENSE.txt) file.

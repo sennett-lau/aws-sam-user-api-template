@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs')
-const { v4: uuidv4 } = require("uuid")
+const { v4: uuidv4 } = require('uuid')
 
 const { generateToken } = require('../utils/jwt')
 const { NotFoundError, UnauthorizedError, BadRequestError } = require('../utils/errors')

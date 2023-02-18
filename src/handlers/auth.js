@@ -91,7 +91,6 @@ exports.authHandler = async (event) => {
     context: {
       userId: decoded?.userId,
       username: decoded?.username,
-      isAdmin: false,
     },
   }
 }

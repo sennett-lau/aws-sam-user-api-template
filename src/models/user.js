@@ -46,7 +46,7 @@ exports.createUser = async (payload) => {
     updatedAt: Date.now(),
   }
 
-  const uniqueConstraint = createUniqueConstraintTransactItems(uniqueConstraintTable, {username: user.username})
+  const uniqueConstraint = createUniqueConstraintTransactItems(uniqueConstraintTable, { username: user.username })
 
   const params = {
     TransactItems: [
@@ -69,10 +69,10 @@ exports.updateUser = async (payload, originalUsername) => {
   const { userId, ...rest } = payload
 
   const UpdateExpression = `SET ${Object.keys(rest).map((key) => `#${key} = :${key}`).join(', ')}`
-  const ExpressionAttributeNames = Object.keys(rest).reduce((acc, key) => ({...acc, [`#${key}`]: key}), {})
+  const ExpressionAttributeNames = Object.keys(rest).reduce((acc, key) => ({ ...acc, [`#${key}`]: key }), {})
   const ExpressionAttributeValues = Object.keys(rest).reduce(
-    (acc, key) => ({...acc, [`:${key}`]: rest[key]}),
-    {}
+    (acc, key) => ({ ...acc, [`:${key}`]: rest[key] }),
+    {},
   )
 
   const params = {
@@ -86,19 +86,19 @@ exports.updateUser = async (payload, originalUsername) => {
           UpdateExpression,
           ExpressionAttributeNames,
           ExpressionAttributeValues,
-        }
+        },
       },
     ],
   }
 
   if (originalUsername) {
     const createUniqueConstraint = createUniqueConstraintTransactItems(
-        uniqueConstraintTable,
-        {username: rest.username}
+      uniqueConstraintTable,
+      { username: rest.username },
     )
     const deleteUniqueConstraint = deleteUniqueConstraintTransactItems(
-        uniqueConstraintTable,
-        {username: originalUsername}
+      uniqueConstraintTable,
+      { username: originalUsername },
     )
 
     params.TransactItems.push(...deleteUniqueConstraint)
@@ -115,7 +115,7 @@ exports.deleteUser = async (payload) => {
 
   const deleteUniqueConstraint = deleteUniqueConstraintTransactItems(
     uniqueConstraintTable,
-    {username}
+    { username },
   )
 
   const params = {
@@ -126,7 +126,7 @@ exports.deleteUser = async (payload) => {
           Key: {
             userId,
           },
-        }
+        },
       },
       ...deleteUniqueConstraint,
     ],
